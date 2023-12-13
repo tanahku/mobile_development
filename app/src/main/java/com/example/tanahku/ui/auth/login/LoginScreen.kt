@@ -44,6 +44,7 @@ import com.example.tanahku.di.Injection
 import com.example.tanahku.ui.auth.register.RegisterViewModel
 import com.example.tanahku.ui.component.Form
 import com.example.tanahku.ui.component.TanahKuButton
+import com.example.tanahku.ui.navigation.Screen
 
 
 @Composable
@@ -78,6 +79,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.padding(vertical = 16.dp))
         SignInButtonAndSignUpText(navController, onClick = {
             viewModel.loginUser(email, password)
+            navController.navigate(Screen.Classify.route)
         })
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         Footer()

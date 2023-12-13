@@ -21,32 +21,36 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TanahKuButton(title: String, onClick: () -> Unit,  modifier: Modifier = Modifier){
+fun TanahKuButton(
+    title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    width: Int = 113,
+    height: Int = 31,
+    color: Color = Color(0xff26623e)
+) {
     OutlinedButton(
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xff26623e)),
+        colors = ButtonDefaults.buttonColors(containerColor = color),
         contentPadding = PaddingValues(horizontal = 45.dp, vertical = 13.dp),
         border = BorderStroke(1.dp, Color(0xff6a2e35)),
         modifier = modifier
-            .requiredWidth(width = 113.dp)
-            .requiredHeight(height = 31.dp)
+            .requiredWidth(width = width.dp)
+            .requiredHeight(height = height.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .requiredWidth(width = 113.dp)
-                .requiredHeight(height = 31.dp)
+                .requiredWidth(width = width.dp)
+                .requiredHeight(height = height.dp)
         ) {
             Text(
-                text = title,
-                color = Color(0xfffbf3e0),
-                style = TextStyle(
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold),
-                modifier = Modifier
-                    .wrapContentHeight(align = Alignment.CenterVertically))
+                text = title, color = Color(0xfffbf3e0), style = TextStyle(
+                    fontSize = 15.sp, fontWeight = FontWeight.Bold
+                ), modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically)
+            )
         }
     }
 }
