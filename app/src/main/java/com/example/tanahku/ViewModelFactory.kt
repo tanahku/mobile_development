@@ -7,6 +7,7 @@ import com.example.tanahku.data.TanahkuRepository
 import com.example.tanahku.di.Injection
 import com.example.tanahku.ui.auth.login.LoginViewModel
 import com.example.tanahku.ui.auth.register.RegisterViewModel
+import com.example.tanahku.ui.classify.ClassifyViewModel
 
 class ViewModelFactory(private val repository: TanahkuRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -19,6 +20,9 @@ class ViewModelFactory(private val repository: TanahkuRepository) :
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ClassifyViewModel::class.java) -> {
+                ClassifyViewModel() as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
@@ -32,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tanahku.R
+import com.example.tanahku.ui.home.HomeScreen
 import com.example.tanahku.ui.theme.TanahKuTheme
 
 @Composable
@@ -47,29 +49,34 @@ fun TanahKuIconButton(
         onClick = onClick,
         modifier = modifier
             .clip(shape = RoundedCornerShape(8.dp))
-            .height(80.dp)
-            .width(336.dp)
+            .height(100.dp) // Adjusted height
+            .width(400.dp)  // Adjusted width
     ) {
         Box(
             modifier = Modifier
-                .requiredWidth(width = 336.dp)
-                .requiredHeight(height = 80.dp)
+                .requiredWidth(width = 400.dp)
+                .requiredHeight(height = 120.dp)
         ) {
             Image(
                 painter = background,
                 contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(39.dp, Alignment.CenterHorizontally),
-                modifier = Modifier.fillMaxSize()
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .fillMaxSize()
+
             ) {
                 Icon(
                     painter = icons,
                     contentDescription = "Camera",
                     tint = Color.White,
                     modifier = modifier
-                        .requiredSize(48.dp)
+                        .requiredSize(64.dp)
                 )
                 Column(
                     horizontalAlignment = Alignment.End,
@@ -79,7 +86,7 @@ fun TanahKuIconButton(
                         text = title,
                         color = Color.White,
                         style = TextStyle(
-                            fontSize = 16.sp,
+                            fontSize = 24.sp,
                             fontWeight = FontWeight.Bold
                         ),
                         modifier = modifier
@@ -90,7 +97,7 @@ fun TanahKuIconButton(
                         text = desc,
                         color = Color.White,
                         style = TextStyle(
-                            fontSize = 10.sp
+                            fontSize = 14.sp
                         ),
                         modifier = modifier
                             .wrapContentHeight(align = Alignment.CenterVertically)
@@ -102,3 +109,18 @@ fun TanahKuIconButton(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun IconButtonPreview() {
+    TanahKuTheme {
+        TanahKuIconButton(
+            background = painterResource(id = R.drawable.btn_crops), 
+            title = stringResource(id = R.string.btn_soil),
+            desc = stringResource(id = R.string.desc_activity_classify_soil),
+            icons = painterResource(id = R.drawable.menu_soil),
+            onClick = {},
+        )
+    }
+}
+

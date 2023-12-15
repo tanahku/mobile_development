@@ -56,4 +56,8 @@
     <string name="welcome">Welcome to TanahKu!</string>
     <string name="btn_classification">Klasifikasikan Foto Tanah</string>
     <string name="classification">Ketahui jenis tanah dari foto yang kamu miliki</string>
+    <string name="btn_crops">Ragam Tanaman</string>
+    <string name="btn_soil">Jenis Tanah</string>
+    <string name="soil">Lihat semua jenis tanah yang tersedia</string>
+    <string name="crops">Lihat semua ragam tanaman yang tersedia</string>
 </resources>

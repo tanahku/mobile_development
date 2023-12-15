@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,28 +31,24 @@ import com.example.tanahku.ui.theme.TanahKuTheme
 
 @Composable
 fun Banner(modifier: Modifier = Modifier){
-    Box(modifier = modifier
-        .requiredHeight(200.dp)
-        .requiredWidth(336.dp)
-    ) {
+    Box{
         Image(
-            painter = painterResource(R.drawable.banner),
-            contentDescription = "Banner Image",
-            contentScale = ContentScale.None,
+            painter = painterResource(id = R.drawable.banner),
+            contentDescription = "Frame 24",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxSize() // Fill the entire Box
-                .align(Alignment.BottomEnd)
-        )
+                .fillMaxWidth())
         Text(
-            text = stringResource(id = R.string.welcome),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
+            text = "Welcome to TanahKu!",
             color = Color.White,
-            textAlign = TextAlign.Center,
+            style = TextStyle(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold),
             modifier = Modifier
-                .padding(top = 24.dp)
-                .align(Alignment.TopCenter)
-            )
+                .align(alignment = Alignment.TopCenter)
+                .offset(x = (-0.5).dp,
+                    y = 24.dp)
+                .wrapContentHeight(align = Alignment.CenterVertically))
     }
 }
 

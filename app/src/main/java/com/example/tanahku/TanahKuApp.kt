@@ -1,5 +1,6 @@
 package com.example.tanahku
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +50,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.tanahku.ui.auth.login.LoginScreen
 import com.example.tanahku.ui.auth.register.RegisterScreen
+import com.example.tanahku.ui.classify.ClassificationResult
 import com.example.tanahku.ui.classify.ClassifyScreen
+import com.example.tanahku.ui.home.HomeScreen
 import com.example.tanahku.ui.navigation.NavigationItem
 import com.example.tanahku.ui.navigation.Screen
 import com.example.tanahku.ui.theme.TanahKuTheme
@@ -72,7 +75,7 @@ fun TanahKuApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Classify.route,
+            startDestination = Screen.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Login.route) {
@@ -82,15 +85,20 @@ fun TanahKuApp(
                 RegisterScreen(navHostController = navController)
             }
             composable(Screen.Home.route) {
+                HomeScreen()
             }
             composable(Screen.Crops.route) {
             }
-            composable(Screen.Classify.route) {
-                ClassifyScreen()
-            }
             composable(Screen.Soil.route) {
             }
-
+            composable(Screen.Classify.route) {
+                ClassifyScreen(navController = navController)
+            }
+            composable(
+                route = "classify/result?imageUri={imageUri}&mlResult={mlResult}",
+            ) {
+                ClassificationResult(navController = navController)
+            }
         }
     }
 }
