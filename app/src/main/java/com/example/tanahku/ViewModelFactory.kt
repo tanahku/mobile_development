@@ -8,6 +8,9 @@ import com.example.tanahku.di.Injection
 import com.example.tanahku.ui.auth.login.LoginViewModel
 import com.example.tanahku.ui.auth.register.RegisterViewModel
 import com.example.tanahku.ui.classify.ClassifyViewModel
+import com.example.tanahku.ui.crops.CropsViewModel
+import com.example.tanahku.ui.detail.DetailViewModel
+import com.example.tanahku.ui.soils.SoilViewModel
 
 class ViewModelFactory(private val repository: TanahkuRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -22,7 +25,16 @@ class ViewModelFactory(private val repository: TanahkuRepository) :
                 LoginViewModel(repository) as T
             }
             modelClass.isAssignableFrom(ClassifyViewModel::class.java) -> {
-                ClassifyViewModel() as T
+                ClassifyViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(CropsViewModel::class.java) -> {
+                CropsViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(SoilViewModel::class.java) -> {
+                SoilViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

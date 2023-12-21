@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -42,71 +43,63 @@ fun TanahKuIconButton(
     title: String,
     desc: String,
     icons: Painter,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    IconButton(
-        onClick = onClick,
-        modifier = modifier
-            .clip(shape = RoundedCornerShape(8.dp))
-            .height(100.dp) // Adjusted height
-            .width(400.dp)  // Adjusted width
+
+    Box(
+        modifier = Modifier
+            .requiredWidth(width = 400.dp)
+            .requiredHeight(height = 120.dp)
     ) {
-        Box(
+        Image(
+            painter = background,
+            contentDescription = null,
             modifier = Modifier
-                .requiredWidth(width = 400.dp)
-                .requiredHeight(height = 120.dp)
+                .fillMaxSize()
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .fillMaxSize()
+
         ) {
-            Image(
-                painter = background,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize()
+            Icon(
+                painter = icons,
+                contentDescription = "Camera",
+                tint = Color.White,
+                modifier = modifier
+                    .requiredSize(64.dp)
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .fillMaxSize()
+            Column(
+                horizontalAlignment = Alignment.End,
 
-            ) {
-                Icon(
-                    painter = icons,
-                    contentDescription = "Camera",
-                    tint = Color.White,
+                ) {
+                Text(
+                    text = title,
+                    color = Color.White,
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
                     modifier = modifier
-                        .requiredSize(64.dp)
+                        .wrapContentHeight(align = Alignment.CenterVertically)
                 )
-                Column(
-                    horizontalAlignment = Alignment.End,
 
-                    ) {
-                    Text(
-                        text = title,
-                        color = Color.White,
-                        style = TextStyle(
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = modifier
-                            .wrapContentHeight(align = Alignment.CenterVertically)
-                    )
-
-                    Text(
-                        text = desc,
-                        color = Color.White,
-                        style = TextStyle(
-                            fontSize = 14.sp
-                        ),
-                        modifier = modifier
-                            .wrapContentHeight(align = Alignment.CenterVertically)
-                    )
-                }
-
+                Text(
+                    text = desc,
+                    color = Color.White,
+                    style = TextStyle(
+                        fontSize = 14.sp
+                    ),
+                    modifier = modifier
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                )
             }
 
         }
+
     }
 }
 
@@ -115,11 +108,10 @@ fun TanahKuIconButton(
 fun IconButtonPreview() {
     TanahKuTheme {
         TanahKuIconButton(
-            background = painterResource(id = R.drawable.btn_crops), 
+            background = painterResource(id = R.drawable.btn_crops),
             title = stringResource(id = R.string.btn_soil),
             desc = stringResource(id = R.string.desc_activity_classify_soil),
             icons = painterResource(id = R.drawable.menu_soil),
-            onClick = {},
         )
     }
 }

@@ -1,26 +1,13 @@
 package com.example.tanahku
 
-import android.net.Uri
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -31,15 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -52,9 +34,14 @@ import com.example.tanahku.ui.auth.login.LoginScreen
 import com.example.tanahku.ui.auth.register.RegisterScreen
 import com.example.tanahku.ui.classify.ClassificationResult
 import com.example.tanahku.ui.classify.ClassifyScreen
+import com.example.tanahku.ui.classify.CropsRecommendation
+import com.example.tanahku.ui.crops.CropsScreen
+import com.example.tanahku.ui.detail.DetailCropsScreen
+import com.example.tanahku.ui.detail.DetailSoilScreen
 import com.example.tanahku.ui.home.HomeScreen
 import com.example.tanahku.ui.navigation.NavigationItem
 import com.example.tanahku.ui.navigation.Screen
+import com.example.tanahku.ui.soils.SoilsScreen
 import com.example.tanahku.ui.theme.TanahKuTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -75,29 +62,60 @@ fun TanahKuApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Login.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Login.route) {
                 LoginScreen(navController = navController)
             }
             composable(Screen.Register.route) {
-                RegisterScreen(navHostController = navController)
+                RegisterScreen(navController = navController)
             }
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(navController = navController)
             }
             composable(Screen.Crops.route) {
+                CropsScreen(navigateToDetail = {cropId ->
+                    navController.navigate(Screen.DetailCrops.createRoute(cropId))
+                })
             }
             composable(Screen.Soil.route) {
+                SoilsScreen(navigateToDetail = {soilId ->
+                    navController.navigate(Screen.DetailSoil.createRoute(soilId))
+                })
             }
             composable(Screen.Classify.route) {
-                ClassifyScreen(navController = navController)
+                ClassifyScreen(navController = navController, modifier = Modifier.padding(16.dp))
             }
             composable(
                 route = "classify/result?imageUri={imageUri}&mlResult={mlResult}",
             ) {
                 ClassificationResult(navController = navController)
+            }
+            composable(
+                route = "classify/result/crops-recommendation?mlResult={mlResult}",
+            ) {
+                CropsRecommendation(navController = navController, navigateToDetail = { cropId ->
+                    navController.navigate(Screen.DetailCrops.createRoute(cropId))
+                })
+            }
+            composable(
+                route = Screen.DetailSoil.route,
+                arguments = listOf(navArgument("soilId"){
+                    type = NavType.LongType
+                }),
+            ){
+                val id = it.arguments?.getLong("soilId") ?: -1L
+                DetailSoilScreen(soilId = id)
+            }
+            composable(
+                route = Screen.DetailCrops.route,
+                arguments = listOf(navArgument("cropsId"){
+                    type = NavType.IntType
+                }),
+            ){
+                val id = it.arguments?.getInt("cropsId") ?: -1
+                DetailCropsScreen(cropId = id)
             }
         }
     }

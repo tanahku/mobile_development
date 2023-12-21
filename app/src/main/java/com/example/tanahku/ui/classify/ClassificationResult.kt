@@ -27,6 +27,9 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -67,6 +70,29 @@ fun ClassificationResult(
             .background(color = Color(0xffefd3ae))
             .padding(all = 16.dp)
     ) {
+        var soilId by remember{ mutableStateOf(0L) }
+
+        when(mlResult){
+            "Chalk" -> {
+                soilId = 1
+            }
+            "Clay" -> {
+                soilId = 2
+            }
+            "Loam" -> {
+                soilId = 3
+            }
+            "Peat" -> {
+                soilId = 4
+            }
+            "Sand" -> {
+                soilId = 5
+            }
+            "Silt" -> {
+                soilId = 6
+            }
+        }
+
         Box(
             modifier = Modifier
                 .requiredSize(380.dp, 430.dp)
@@ -108,7 +134,7 @@ fun ClassificationResult(
                 text = if (mlResult.isEmpty()) {
                     "Tidak ada"
                 } else {
-                    mlResult
+                    "$mlResult Soil"
                 },
                 style = TextStyle(
                     fontSize = 16.sp,
@@ -122,25 +148,35 @@ fun ClassificationResult(
         ) {
             ResultButton(
                 title = "Lihat tanaman yang cocok dengan tanah anda",
-                icon = painterResource(id = R.drawable.menu_crops)
+                icon = painterResource(id = R.drawable.menu_crops),
+                onClick = {
+                    navController.navigate(
+                    "${Screen.CropsRecommendation.route}?${Screen.CropsRecommendation.ARG_ML_RESULT}=${mlResult}"
+                )}
             )
             ResultButton(
-                title = "Baca selengkapnya tentang tanah kapur",
-                icon = painterResource(id = R.drawable.menu_soil)
+                title = "Baca selengkapnya tentang $mlResult",
+                icon = painterResource(id = R.drawable.menu_soil),
+                onClick = {
+                    navController.navigate(Screen.DetailSoil.createRoute(soilId))
+                }
             )
         }
     }
-
 }
+
+
+
 
 @Composable
 fun ResultButton(
     title: String,
     icon: Painter,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     OutlinedButton(
-        onClick = { },
+        onClick = onClick,
         shape = RoundedCornerShape(100.dp),
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xfffbf3e0)),
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp),

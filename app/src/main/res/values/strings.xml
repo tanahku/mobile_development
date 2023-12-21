@@ -60,4 +60,6 @@
     <string name="btn_soil">Jenis Tanah</string>
     <string name="soil">Lihat semua jenis tanah yang tersedia</string>
     <string name="crops">Lihat semua ragam tanaman yang tersedia</string>
+    <string name="crops_title">Tanaman</string>
+    <string name="crops_desc">Lihat semua ragam tanaman yang tersedia di sini</string>
 </resources>

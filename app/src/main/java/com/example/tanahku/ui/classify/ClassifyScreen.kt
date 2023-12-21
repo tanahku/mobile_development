@@ -61,9 +61,6 @@ import com.example.tanahku.utils.Utils.getImageUri
 import com.example.tanahku.utils.Utils.preprocessImage
 
 
-val LocalImageUri = compositionLocalOf<Uri?> { null }
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ClassifyScreen(
     modifier: Modifier = Modifier,
@@ -149,7 +146,6 @@ fun ClassifyScreen(
             .fillMaxSize()
             .clip(shape = RoundedCornerShape(16.dp))
             .background(color = Color(0xffefd3ae))
-            .padding(all = 16.dp)
     ) {
         currentImageUri?.let { viewModel.setCurrentImageUri(it) }
         Column(
@@ -179,6 +175,7 @@ fun ClassifyScreen(
 
         Column(
             verticalArrangement = Arrangement.spacedBy(5.dp, Alignment.Top),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),

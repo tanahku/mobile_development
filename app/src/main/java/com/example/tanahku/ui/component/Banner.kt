@@ -1,7 +1,10 @@
 package com.example.tanahku.ui.component
 
+import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,7 +33,11 @@ import com.example.tanahku.R
 import com.example.tanahku.ui.theme.TanahKuTheme
 
 @Composable
-fun Banner(modifier: Modifier = Modifier){
+fun Banner(
+    title: String,
+    desc: String = "",
+    modifier: Modifier = Modifier
+){
     Box{
         Image(
             painter = painterResource(id = R.drawable.banner),
@@ -38,17 +45,30 @@ fun Banner(modifier: Modifier = Modifier){
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth())
-        Text(
-            text = "Welcome to TanahKu!",
-            color = Color.White,
-            style = TextStyle(
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold),
-            modifier = Modifier
-                .align(alignment = Alignment.TopCenter)
-                .offset(x = (-0.5).dp,
-                    y = 24.dp)
-                .wrapContentHeight(align = Alignment.CenterVertically))
+        Column (
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+            modifier = modifier.fillMaxWidth().padding(top = 20.dp)
+        ){
+            Text(
+                text = title,
+                color = Color.White,
+                style = TextStyle(
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold),
+                modifier = Modifier
+                    .wrapContentHeight(align = Alignment.CenterVertically))
+            Text(
+                text = desc,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                style = TextStyle(
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Medium),
+                modifier = modifier
+                    .requiredWidth(width = 133.dp)
+                    .wrapContentHeight(align = Alignment.CenterVertically))
+        }
     }
 }
 
@@ -57,6 +77,9 @@ fun Banner(modifier: Modifier = Modifier){
 @Composable
 fun BannerPreview(){
     TanahKuTheme {
-        Banner()
+        Banner(
+            title = "Tanaman",
+            desc = "Lihat semua ragam tanaman yang tersedia di sini"
+        )
     }
 }
